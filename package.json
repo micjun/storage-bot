@@ -2,9 +2,9 @@
   "name": "store-bot",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/server.js",
   "scripts": {
-    "dev": "nodemon app.js",
+    "dev": "nodemon server/server.js",
     "test": "test"
   },
   "author": "",
