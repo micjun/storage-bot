@@ -1,4 +1,5 @@
 const { App } = require('@slack/bolt');
+const db = require('./conversationModel');
 require('dotenv').config();
 // Initializes your app with your bot token and signing secret
 const app = new App({
@@ -9,7 +10,7 @@ const app = new App({
 });
 const store = [];
 const conversation = [];
-
+const textArr = [];
 // app.command('/knowledge', async ({ command, ack, say }) => {
 //   try {
 //     await ack();
@@ -41,7 +42,28 @@ app.message('store conversation', async ({ message, say }) => {
         channel: store[i],
       });
       conversation.push(result.messages);
+
+      for (let j = 0; j < conversation[i].length; j += 1) {
+        textArr.push(conversation[i][j].text);
+        const conversations =
+          'INSERT INTO conversations (channel, user_name, text, ts) VALUES ($1, $2, $3, $4)';
+        db.query(
+          conversations,
+          [
+            store[i],
+            conversation[i][j].user,
+            conversation[i][j].text,
+            conversation[i][j].ts,
+          ],
+          (err, data) => {
+            if (err) {
+              console.log(err);
+            }
+          }
+        );
+      }
     }
+    say(JSON.stringify(textArr));
     console.log(conversation);
   } catch (error) {
     console.error(error);
