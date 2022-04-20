@@ -57,7 +57,7 @@ app.message('store conversation', async ({ message, say }) => {
         );
       }
     }
-    say(JSON.stringify(textArr));
+    // say(JSON.stringify(textArr));
     console.log(conversation);
   } catch (error) {
     console.error(error);
@@ -83,8 +83,21 @@ app.message('channel names', async ({ message, say }) => {
   }
 });
 
-app.message('knock knock', async ({ message, say }) => {
-  await say(`_Who's there?_`);
+app.message('conversation timestamp', ({ message, say }) => {
+  try {
+    for (let i = 0; i < conversation.length; i += 1) {
+      for (let j = 0; j < conversation[i].length; j += 1) {
+        const date = new Date(Math.floor(conversation[i][j].ts * 1000));
+        const ts =
+          'INSERT INTO timestamp (timestamp_unix, timestamp_date) VALUES ($1, $2)';
+        db.query(ts, [conversation[i][j].ts, date], (err, data) => {
+          if (err) {
+            console.log(err);
+          }
+        });
+      }
+    }
+  } catch {}
 });
 
 (async () => {
