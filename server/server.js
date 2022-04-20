@@ -31,7 +31,7 @@ const months = [
   'Dec',
 ];
 
-app.message('store conversation id', async ({ message, say }) => {
+app.message('channel ids', async ({ message, say }) => {
   try {
     const result = await app.client.conversations.list({
       token: process.env.SLACK_BOT_TOKEN,
@@ -45,7 +45,7 @@ app.message('store conversation id', async ({ message, say }) => {
   }
 });
 
-app.message('store all conversation', async ({ message, say }) => {
+app.message('all conversations', async ({ message, say }) => {
   try {
     for (let i = 0; i < store.length; i += 1) {
       const result = await app.client.conversations.history({
@@ -146,7 +146,7 @@ app.message('conversation timestamp', ({ message, say }) => {
   }
 });
 
-app.message('store user id', async ({ message, say }) => {
+app.message('user id', async ({ message, say }) => {
   try {
     const result = await app.client.users.list({
       token: process.env.SLACK_BOT_TOKEN,
