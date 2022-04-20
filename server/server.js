@@ -100,6 +100,36 @@ app.message('conversation timestamp', ({ message, say }) => {
   } catch {}
 });
 
+app.message('store user id', async ({ message, say }) => {
+  try {
+    const result = await app.client.users.list({
+      token: process.env.SLACK_BOT_TOKEN,
+    });
+    for (const user of result.members) {
+      const userID =
+        'INSERT INTO userid (user_id, user_name, real_name, team_id, tz, tz_label) VALUES ($1, $2, $3, $4, $5, $6)';
+      db.query(
+        userID,
+        [
+          user.id,
+          user.name,
+          user.real_name,
+          user.team_id,
+          user.tz,
+          user.tz_label,
+        ],
+        (err, data) => {
+          if (err) {
+            console.log(err);
+          }
+        }
+      );
+    }
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 (async () => {
   await app.start(process.env.PORT || 3000);
   console.log('⚡️ Bolt app is running!');
