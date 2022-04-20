@@ -11,6 +11,8 @@ const app = new App({
   // appToken: process.env.APP_TOKEN,
 });
 
+const channellist = {};
+const userlist = {};
 const store = [];
 const conversation = [];
 const textArr = [];
@@ -53,8 +55,9 @@ app.message('store all conversation', async ({ message, say }) => {
 
       for (let j = 0; j < conversation[i].length; j += 1) {
         textArr.push(conversation[i][j].text);
+        const date = new Date(Math.floor(conversation[i][j].ts * 1000));
         const conversations =
-          'INSERT INTO conversations (channel, user_name, text, ts) VALUES ($1, $2, $3, $4)';
+          'INSERT INTO conversations (channel, user_name, text, ts, username, channelname, date) VALUES ($1, $2, $3, $4, $5, $6, $7)';
         db.query(
           conversations,
           [
@@ -62,6 +65,9 @@ app.message('store all conversation', async ({ message, say }) => {
             conversation[i][j].user,
             conversation[i][j].text,
             conversation[i][j].ts,
+            userlist[conversation[i][j].user],
+            channellist[store[i]],
+            date,
           ],
           (err, data) => {
             if (err) {
@@ -84,6 +90,7 @@ app.message('channel names', async ({ message, say }) => {
       token: process.env.SLACK_BOT_TOKEN,
     });
     for (const channel of result.channels) {
+      channellist[channel.id] = channel.name;
       const channels =
         'INSERT INTO channel (channel_id, channel_name) VALUES ($1, $2)';
       db.query(channels, [channel.id, channel.name], (err, data) => {
@@ -110,7 +117,7 @@ app.message('conversation timestamp', ({ message, say }) => {
         const min = date.getMinutes();
         const sec = date.getSeconds();
         const ts =
-          'INSERT INTO timestamp (timestamp_unix, timestamp_date, channel_id, year, month, date, hour, min, sec) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
+          'INSERT INTO timestamp (timestamp_unix, timestamp_date, channel_id, year, month, date, hour, min, sec, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
         db.query(
           ts,
           [
@@ -123,6 +130,7 @@ app.message('conversation timestamp', ({ message, say }) => {
             hour,
             min,
             sec,
+            conversation[i][j].user,
           ],
           (err, data) => {
             if (err) {
@@ -144,6 +152,7 @@ app.message('store user id', async ({ message, say }) => {
       token: process.env.SLACK_BOT_TOKEN,
     });
     for (const user of result.members) {
+      userlist[user.id] = user.name;
       const userID =
         'INSERT INTO userid (user_id, user_name, real_name, team_id, tz, tz_label) VALUES ($1, $2, $3, $4, $5, $6)';
       db.query(
