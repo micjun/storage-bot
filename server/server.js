@@ -64,6 +64,25 @@ app.message('store conversation', async ({ message, say }) => {
   }
 });
 
+app.message('channel names', async ({ message, say }) => {
+  try {
+    const result = await app.client.conversations.list({
+      token: process.env.SLACK_BOT_TOKEN,
+    });
+    for (const channel of result.channels) {
+      const channels =
+        'INSERT INTO channel (channel_id, channel_name) VALUES ($1, $2)';
+      db.query(channels, [channel.id, channel.name], (err, data) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 app.message('knock knock', async ({ message, say }) => {
   await say(`_Who's there?_`);
 });
