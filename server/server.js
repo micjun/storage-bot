@@ -14,6 +14,20 @@ const app = new App({
 const store = [];
 const conversation = [];
 const textArr = [];
+const months = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
 
 app.message('store conversation id', async ({ message, say }) => {
   try {
@@ -23,13 +37,13 @@ app.message('store conversation id', async ({ message, say }) => {
     for (const channel of result.channels) {
       store.push(channel.id);
     }
-    console.log(store);
+    say('Conversation ID Retrieved!');
   } catch (error) {
     console.error(error);
   }
 });
 
-app.message('store conversation', async ({ message, say }) => {
+app.message('store all conversation', async ({ message, say }) => {
   try {
     for (let i = 0; i < store.length; i += 1) {
       const result = await app.client.conversations.history({
@@ -58,7 +72,7 @@ app.message('store conversation', async ({ message, say }) => {
       }
     }
     // say(JSON.stringify(textArr));
-    console.log(conversation);
+    say('All conversation data saved!');
   } catch (error) {
     console.error(error);
   }
@@ -78,6 +92,7 @@ app.message('channel names', async ({ message, say }) => {
         }
       });
     }
+    say('Channel names identified!');
   } catch (error) {
     console.error(error);
   }
@@ -88,16 +103,39 @@ app.message('conversation timestamp', ({ message, say }) => {
     for (let i = 0; i < conversation.length; i += 1) {
       for (let j = 0; j < conversation[i].length; j += 1) {
         const date = new Date(Math.floor(conversation[i][j].ts * 1000));
+        const year = date.getFullYear();
+        const month = months[date.getMonth()];
+        const dates = date.getDate();
+        const hour = date.getHours();
+        const min = date.getMinutes();
+        const sec = date.getSeconds();
         const ts =
-          'INSERT INTO timestamp (timestamp_unix, timestamp_date) VALUES ($1, $2)';
-        db.query(ts, [conversation[i][j].ts, date], (err, data) => {
-          if (err) {
-            console.log(err);
+          'INSERT INTO timestamp (timestamp_unix, timestamp_date, channel_id, year, month, date, hour, min, sec) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
+        db.query(
+          ts,
+          [
+            conversation[i][j].ts,
+            date,
+            store[i],
+            year,
+            month,
+            dates,
+            hour,
+            min,
+            sec,
+          ],
+          (err, data) => {
+            if (err) {
+              console.log(err);
+            }
           }
-        });
+        );
       }
     }
-  } catch {}
+    say('Timestamp converted into date/time!');
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 app.message('store user id', async ({ message, say }) => {
@@ -125,6 +163,7 @@ app.message('store user id', async ({ message, say }) => {
         }
       );
     }
+    say('All user info stored!');
   } catch (error) {
     console.error(error);
   }
