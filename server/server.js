@@ -31,6 +31,13 @@ const months = [
   'Dec',
 ];
 
+/**
+ * Command to get all channel ids
+ *
+ * This is useful to get the reference ids that Slack uses to designate public channels
+ *
+ * This info can be used in conjunction with a number of other Slack APIs to get info such as messages in a particular channel
+ */
 app.message('channel ids', async ({ message, say }) => {
   try {
     const result = await app.client.conversations.list({
@@ -45,6 +52,15 @@ app.message('channel ids', async ({ message, say }) => {
   }
 });
 
+/**
+ * Command to get all conversations in every public channel
+ *
+ * channel ids above must be run so that store is populated with channel ids
+ *
+ * Can be reconfigured to not rely on another command
+ *
+ * all conversations will be stored in conversation before being stored in db
+ */
 app.message('all conversations', async ({ message, say }) => {
   try {
     for (let i = 0; i < store.length; i += 1) {
@@ -84,6 +100,15 @@ app.message('all conversations', async ({ message, say }) => {
   }
 });
 
+/**
+ * Retrieves channel names
+ *
+ * Does not need store which contains channel ids
+ *
+ * Conversations command can be reconfigured the way channel names is set up
+ *
+ * Seperated channel ids and names for proof of concept and testing purposes
+ */
 app.message('channel names', async ({ message, say }) => {
   try {
     const result = await app.client.conversations.list({
@@ -105,6 +130,13 @@ app.message('channel names', async ({ message, say }) => {
   }
 });
 
+/**
+ * Retrieves timestamp and converts into human readable format
+ *
+ * Uses conversation array since it contains all timestamp information and uses store to get channel id
+ *
+ * Useful to make SQL joins
+ */
 app.message('conversation timestamp', ({ message, say }) => {
   try {
     for (let i = 0; i < conversation.length; i += 1) {
@@ -146,6 +178,11 @@ app.message('conversation timestamp', ({ message, say }) => {
   }
 });
 
+/**
+ * User id retrieves Slack id, username and related information
+ *
+ * Refer to Slack API documentation for more retrievable fields
+ */
 app.message('user id', async ({ message, say }) => {
   try {
     const result = await app.client.users.list({
