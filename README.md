@@ -1,11 +1,11 @@
+Table of Contents
+
 - [Installation](#installation)
   - [Slack App Setup](#slack-app-setup)
   - [Run Bot](#run-bot)
 - [How to use](#how-to-use)
 - [Bot Commands](#bot-commands)
   - [Channel Names](#channel-names)
-
-Table of Contents
 
 # Installation
 
