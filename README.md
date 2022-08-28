@@ -1,23 +1,21 @@
-- [installation](#installation)
-  - [slackapp](#slackapp)
-  - [runbot](#runbot)
-- [usage](#usage)
-- [botcommands](#botcommands)
-  - [channel](#channel)
+- [Installation](#installation)
+  - [Slack App Setup](#slack-app-setup)
+  - [Run Bot](#run-bot)
+- [How to use](#how-to-use)
+- [Bot Commands](#bot-commands)
+  - [Channel Names](#channel-names)
 
-  - [placeholder](#channel)
+# Installation
 
-# installation
+## Slack App Setup
 
-## slackapp
+## Run Bot
 
-## runbot
+# How to use
 
-# usage
+# Bot Commands
 
-# botcommands
-
-## channel
+## Channel Names
 
     bot to store all Slack messages in workspace
 
