@@ -1,15 +1,34 @@
-# storage-bot
+- [installation](#installation)
+  - [slackapp](#slackapp)
+  - [runbot](#runbot)
+- [usage](#usage)
+- [botcommands](#botcommands)
+  - [channel](#channel)
 
-bot to store all Slack messages in workspace
+  - [placeholder](#channel)
 
-Run in following order in slack workspace
+# installation
 
-channel ids
+## slackapp
 
-channel names
+## runbot
 
-user id
+# usage
 
-all conversations
+# botcommands
 
-conversation timestamp
+## channel
+
+    bot to store all Slack messages in workspace
+
+    Run in following order in slack workspace
+
+    channel ids
+
+    channel names
+
+    user id
+
+    all conversations
+
+    conversation timestamp
