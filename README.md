@@ -5,6 +5,8 @@
 - [Bot Commands](#bot-commands)
   - [Channel Names](#channel-names)
 
+Table of Contents
+
 # Installation
 
 ## Slack App Setup
