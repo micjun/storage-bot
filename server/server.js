@@ -47,6 +47,7 @@ app.message('channel ids', async ({ message, say }) => {
       store.push(channel.id);
     }
     say('Conversation ID Retrieved!');
+    // console.log(store)
   } catch (error) {
     console.error(error);
   }
@@ -114,6 +115,7 @@ app.message('channel names', async ({ message, say }) => {
     const result = await app.client.conversations.list({
       token: process.env.SLACK_BOT_TOKEN,
     });
+    console.log(result.channels)
     for (const channel of result.channels) {
       channellist[channel.id] = channel.name;
       const channels =
