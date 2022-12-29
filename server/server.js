@@ -31,6 +31,16 @@ const months = [
   'Dec',
 ];
 
+const create = `CREATE TABLE IF NOT EXISTS channel (
+  channel_id VARCHAR,
+  channel_name TEXT
+)`;
+db.query(create, (err, data) => {
+  if (err) {
+    console.log(err);
+  }
+});
+
 /**
  * Command to get all channel ids
  *
@@ -121,14 +131,10 @@ app.message('all conversations', async ({ message, say }) => {
  */
 app.message('channel names', async ({ message, say }) => {
   try {
-    `CREATE TABLE IF NOT EXISTS channels (
-      channel_id: VARCHAR,
-      channel_name: 
-    )`;
     const result = await app.client.conversations.list({
       token: process.env.SLACK_BOT_TOKEN,
     });
-    console.log(result.channels);
+    console.log(result.channels.id);
     for (const channel of result.channels) {
       channellist[channel.id] = channel.name;
       const channels =
