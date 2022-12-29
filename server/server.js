@@ -47,7 +47,7 @@ app.message('channel ids', async ({ message, say }) => {
       store.push(channel.id);
     }
     say('Conversation ID Retrieved!');
-    // console.log(store)
+    console.log(store);
   } catch (error) {
     console.error(error);
   }
@@ -64,6 +64,15 @@ app.message('channel ids', async ({ message, say }) => {
  */
 app.message('all conversations', async ({ message, say }) => {
   try {
+    `CREATE TABLE IF NOT EXISTS conversations (
+      channel: VARCHAR,
+      user_name: ,
+      text: ,
+      ts: ,
+      username: ,
+      channelname: ,
+      date:
+    )`;
     for (let i = 0; i < store.length; i += 1) {
       const result = await app.client.conversations.history({
         channel: store[i],
@@ -112,10 +121,14 @@ app.message('all conversations', async ({ message, say }) => {
  */
 app.message('channel names', async ({ message, say }) => {
   try {
+    `CREATE TABLE IF NOT EXISTS channels (
+      channel_id: VARCHAR,
+      channel_name: 
+    )`;
     const result = await app.client.conversations.list({
       token: process.env.SLACK_BOT_TOKEN,
     });
-    console.log(result.channels)
+    console.log(result.channels);
     for (const channel of result.channels) {
       channellist[channel.id] = channel.name;
       const channels =
@@ -141,6 +154,19 @@ app.message('channel names', async ({ message, say }) => {
  */
 app.message('conversation timestamp', ({ message, say }) => {
   try {
+    `CREATE TABLE IF NOT EXISTS timestamp (
+      timestamp_unix: VARCHAR,
+      timestamp_date: ,
+      channel_id: ,
+      ts: ,
+      year: , 
+      month: , 
+      date: , 
+      hour: , 
+      min: ,
+      sec: , 
+      user_id:
+    )`;
     for (let i = 0; i < conversation.length; i += 1) {
       for (let j = 0; j < conversation[i].length; j += 1) {
         const date = new Date(Math.floor(conversation[i][j].ts * 1000));
@@ -187,6 +213,14 @@ app.message('conversation timestamp', ({ message, say }) => {
  */
 app.message('user id', async ({ message, say }) => {
   try {
+    `CREATE TABLE IF NOT EXISTS userid (
+      user_id: VARCHAR,
+      user_name: ,
+      real_name: ,
+      team_id: ,
+      tz: ,
+      tz_label: 
+    )`;
     const result = await app.client.users.list({
       token: process.env.SLACK_BOT_TOKEN,
     });
