@@ -4,8 +4,9 @@ Table of Contents
 - [Installation](#installation)
     - [YAML code](#yaml-code)
 - [How to use](#how-to-use)
-  - [Channel Names](#channel-names)
-  - [User Id](#user-id)
+  - [Channel ID](#channel-id)
+  - [Channel Name](#channel-name)
+  - [User ID](#user-id)
   - [Conversations](#conversations)
   - [Timestamps](#timestamps)
 
@@ -73,20 +74,36 @@ This is an easy to use Slack App for downloading all messages in public channels
 
 After you have setup the bot on Slack App, installed the Slack App into the workspace and setup the database, you can now run your bot. You will do this by messaging the bot (in this case storage bot) your commands. You will need to enter the following commands in order.
 
-## Channel Names
+## Channel ID
 
     channel ids
 
+
+- retrieves unique id of every public channel in Slack workspace and stores them in an array
+
+## Channel Name
+
     channel names
 
-## User Id
+
+- stores channel name, id and relevant information in channel table
+
+## User ID
 
     user id
+
+
+- stores user id information such as alias and timezone in userid table
 
 ## Conversations
 
     all conversations
 
+
+- stores all conversations in every channel that the bot is in and other information such as username, channel name and date in conversation table
+
 ## Timestamps
 
     conversation timestamp
+
+- stores timestamp information for each conversation such as day, month, year, minute, sec, hour in timestamp table

@@ -16,9 +16,9 @@ const createUserId = `CREATE TABLE IF NOT EXISTS userid (
 )`;
 const createConversation = `CREATE TABLE IF NOT EXISTS conversations (
   id SERIAL PRIMARY KEY,
-  channel VARCHAR NOT NULL,
+  channel VARCHAR NOT NULL,        
   user_name VARCHAR NOT NULL,
-  text VARCHAR NOT NULL,
+  text VARCHAR NOT NULL,   
   ts VARCHAR NOT NULL,
   username VARCHAR NOT NULL,
   channelname VARCHAR NOT NULL,
