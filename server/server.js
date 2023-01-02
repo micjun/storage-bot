@@ -72,7 +72,7 @@ app.message('all conversations', async ({ message, say }) => {
         channel: store[i],
       });
       conversation.push(result.messages);
-
+      console.log(conversation);
       for (let j = 0; j < conversation[i].length; j += 1) {
         textArr.push(conversation[i][j].text);
         const date = new Date(Math.floor(conversation[i][j].ts * 1000));
