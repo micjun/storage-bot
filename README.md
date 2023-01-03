@@ -60,15 +60,16 @@ This is an easy to use Slack App for downloading all messages in public channels
    </details>
 
 6. Create App
-7. In "Basic Information", scroll down to "App-Level Tokens" and generate a token with scope "connections: write" and "authorization:read". You can name the token whatever you like - for example, test
-8. Create a .env file at root and set APP_TOKEN = App Level Token (this token starts with xapp)
-9. In the same .env file set SLACK_BOT_TOKEN = placeholder (this token starts with xoxb) and SLACK_SIGNING_SECRET = placeholder
-10. In the .env file set your URI = to the URI of whichever postgres you are using
+7. In "Basic Information", scroll down to "App-Level Tokens" and generate a token with scope "connections: write" and "authorization:read". You can name the token whatever you like - for example, test. Copy the generated token (starts with xapp)
+8. Create a .env file at root and set APP_TOKEN = xapp token from the previous step.
+9. Scroll up to "App Credentials". There will be a field called Signing Secret. Copy this token and in your .env file, set SLACK_SIGNING_SECRET = your Signing Secret.
+10. Under "Settings", click on "Install App". Once installed, you will be given a Bot User OAuth Token. In your .env file, set SLACK_BOT_TOKEN = Bot User OAuth Token (this token starts with xoxb)
+11. In the .env file set your URI = to the URI of whichever postgres you are using
     <details>
       <summary>Expand for PostgreSQL setup example using ElephantSQL</summary>  
         
     </details>
-11. Invite Storage bot to the channels that you want the conversation histories of by using the slash command /invite to invite Storage bot
+12. Invite Storage bot to the channels that you want to store the conversation histories of by using the slash command `/invite` in each of those channels
 
 # How to use
 
